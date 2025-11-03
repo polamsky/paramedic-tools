@@ -251,7 +251,7 @@ h3 { font-size: 1.15rem; margin-bottom: 4px; }
 
 label .description {
   font-style: italic;
-  font-size: 0.9rem;
+  font-size: 0.8rem; !important
   color: #7a8a8f;
   margin: 4px 0 10px;
   line-height: 1.4;
