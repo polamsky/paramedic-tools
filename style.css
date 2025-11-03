@@ -28,6 +28,10 @@ h1, h2, h3 {
   margin-top: 0;
 }
 
+h1.master-header{
+  color: #fff;
+}
+
 p { line-height: 1.5; color: #555; }
 
 /* ----------------------------------------------------------
@@ -39,11 +43,20 @@ p { line-height: 1.5; color: #555; }
   border-bottom: 1px solid var(--border-light);
   padding: 10px 24px;
   display: flex;
+  lex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 999;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.header-right {
+  font-size: 0.8rem;
+  text-align: right;
+  color: #999999;
 }
 
 .back-link {
@@ -62,6 +75,43 @@ p { line-height: 1.5; color: #555; }
 .back-link:hover {
   background: #e0f2f1;
   transform: translateY(-1px);
+}
+
+.back-link i {
+  font-size: 0.85rem;
+}
+
+
+/* ----------------------------------------------------------
+   STICKY HEADER & FOOTER (desktop)
+----------------------------------------------------------- */
+@media (min-width: 769px) {
+  .tool-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  .site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  /* Adjust page layout so content isn't hidden */
+  body {
+    padding-top: 60px;  /* space for header */
+    padding-bottom: 50px; /* space for footer */
+  }
+
+  .container {
+    height: calc(100vh - 110px);
+    overflow-y: auto;
+  }
 }
 
 /* ----------------------------------------------------------

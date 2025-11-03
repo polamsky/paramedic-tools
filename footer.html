@@ -2,6 +2,12 @@
 <footer class="site-footer">
   <p>
     <i class="fas fa-stethoscope"></i>
-    © 2025 Queensland Paramedic Documentation Suite — Designed for professional field use
+    © <span id="currentYear"></span> Smart Paramedics<br>Designed and developed in Meanjin (Brisbane), Australia.<br>Designed for professional field use; no information is recorded or saved anywhere.
   </p>
 </footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+  });
+</script>
