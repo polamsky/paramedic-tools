@@ -1,0 +1,322 @@
+/* ----------------------------------------------------------
+   GLOBAL STYLES — shared by all tools
+----------------------------------------------------------- */
+
+:root {
+  --primary: #00796b;
+  --accent: #fdd835;
+  --bg-light: #f5f7f8;
+  --text-dark: #2f3e46;
+  --card-bg: #ffffff;
+  --border-light: #dde5e4;
+}
+
+/* Base layout & typography */
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  color: var(--primary);
+  margin-top: 0;
+}
+
+h1.master-header{
+  color: #fff;
+}
+
+
+p {
+  line-height: 1.5;
+  color: #555;
+}
+
+/* ----------------------------------------------------------
+   MINI HEADER BAR
+----------------------------------------------------------- */
+.tool-header {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  padding: 10px 24px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'Inter','Segoe UI',sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.25s, transform 0.15s;
+}
+
+.back-link:hover {
+  background: #e0f2f1;
+  transform: translateY(-1px);
+}
+
+.back-link i {
+  font-size: 0.85rem;
+}
+
+/* ----------------------------------------------------------
+   INDEX PAGE
+----------------------------------------------------------- */
+header {
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 25px 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  gap: 30px;
+}
+
+/* Card (tool link) design */
+a.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  width: 300px;
+  height: 320px;
+  padding: 25px;
+  text-align: center;
+  border-top: 5px solid var(--primary);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+a.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  background: #f9fdfc;
+}
+
+.icon {
+  font-size: 2.8rem;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+a.card h2 {
+  font-size: 1.25rem;
+  margin: 8px 0;
+}
+
+a.card p {
+  font-size: 0.93rem;
+  color: #607273;
+  margin: 10px 0 0;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.button {
+  background: var(--primary);
+  color: white;
+  padding: 8px 0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+  margin-top: 20px;
+}
+
+a.card:hover .button {
+  background: #004d40;
+}
+
+/* ----------------------------------------------------------
+   TOOL PAGE STRUCTURE (VIRCA + MSE)
+----------------------------------------------------------- */
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.left, .right {
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.left {
+  width: 60%;
+  background: var(--card-bg);
+}
+
+.right {
+  width: 40%;
+  background: #fffbe6;
+  border-left: 2px solid var(--accent);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-shadow: -4px 0 8px rgba(0,0,0,0.05);
+}
+
+.section {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border-left: 4px solid #e0f2f1;
+}
+
+h2 {
+  font-size: 1.6rem;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 6px;
+}
+
+h3 {
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+
+p.description {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #7a8a8f;
+  margin: 4px 0 10px;
+  line-height: 1.4;
+}
+
+/* Checkboxes and inputs */
+input[type="checkbox"] {
+  accent-color: var(--primary);
+  transform: scale(1.2);
+  margin-right: 8px;
+}
+
+.checkbox-group label {
+  display: block;
+  margin: 6px 0;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 8px;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
+  resize: vertical;
+}
+
+input[type="text"]:focus, textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* Right-side output boxes */
+.sentence {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  line-height: 1.5;
+}
+
+.sentence strong {
+  color: var(--primary);
+}
+
+.copy-icon {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  cursor: pointer;
+  color: var(--primary);
+  transition: color 0.2s;
+}
+
+.copy-icon:hover {
+  color: #004d40;
+}
+
+#copyAll {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+  margin-top: 15px;
+}
+
+#copyAll:hover {
+  background: #004d40;
+}
+
+/* ----------------------------------------------------------
+   GLOBAL FOOTER (used on all pages)
+----------------------------------------------------------- */
+.site-footer {
+  text-align: center;
+  padding: 14px 10px;
+  background: #e0f2f1;
+  color: #336d67;
+  font-size: 0.9rem;
+  border-top: 1px solid #cde3e1;
+  box-shadow: 0 -1px 4px rgba(0,0,0,0.05);
+  margin-top: auto;
+}
+
+.site-footer i {
+  color: var(--primary);
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+.site-footer p {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}

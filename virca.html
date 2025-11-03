@@ -6,154 +6,13 @@
 <title>VIRCA Statement Builder</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-  :root {
-    --primary: #00796b;
-    --accent: #fdd835;
-    --bg-light: #f5f7f8;
-    --text-dark: #2f3e46;
-    --card-bg: #ffffff;
-    --border-light: #ddd;
-  }
-
-  body {
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: var(--bg-light);
-    margin: 0;
-    display: flex;
-    height: 100vh;
-    color: var(--text-dark);
-  }
-
-  .container {
-    display: flex;
-    width: 100%;
-  }
-
-  .left, .right {
-    padding: 30px;
-    overflow-y: auto;
-  }
-
-  .left {
-    width: 60%;
-    background: var(--card-bg);
-  }
-
-  .right {
-    width: 40%;
-    background: #fffbe6;
-    border-left: 2px solid var(--accent);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    box-shadow: -4px 0 8px rgba(0,0,0,0.05);
-  }
-
-  h2 {
-    margin-top: 0;
-    font-size: 1.6rem;
-    color: var(--primary);
-    border-bottom: 2px solid var(--primary);
-    padding-bottom: 6px;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-    color: var(--primary);
-    margin-bottom: 8px;
-  }
-
-  input[type="text"], textarea {
-    width: 100%;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 10px;
-    margin-top: 5px;
-    font-size: 0.95rem;
-    transition: border-color 0.3s;
-  }
-
-  input[type="text"]:focus, textarea:focus {
-    border-color: var(--primary);
-    outline: none;
-  }
-
-  .section {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  }
-
-  .checkbox-group label {
-    display: block;
-    margin: 6px 0;
-    cursor: pointer;
-    font-size: 0.95rem;
-  }
-
-  input[type="checkbox"] {
-    accent-color: var(--primary);
-    transform: scale(1.2);
-    margin-right: 8px;
-  }
-
-  .sentence {
-    background: #fff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    position: relative;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    line-height: 1.5;
-  }
-
-  .sentence strong {
-    color: var(--primary);
-    font-size: 1.05rem;
-  }
-
-  .copy-icon {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    cursor: pointer;
-    color: var(--primary);
-    transition: color 0.2s;
-  }
-
-  .copy-icon:hover {
-    color: #004d40;
-  }
-
-  #copyAll {
-    width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    background: var(--primary);
-    color: white;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s;
-    margin-top: 15px;
-  }
-
-  #copyAll:hover {
-    background: #004d40;
-  }
-
-  #output {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-</style>
-</head>
+<link rel="stylesheet" href="styles.css">
 <body>
+
+<!-- Mini Header -->
+<div class="tool-header"><a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> All Tools</a></div>
+<!-- END Mini Header -->
+
 
 <div class="container">
   <div class="left">
@@ -248,6 +107,14 @@
     <button id="copyAll">📋 Copy All VIRCA Summary</button>
   </div>
 </div>
+
+<!-- Shared Footer -->
+<footer class="site-footer">
+  <p>
+    <i class="fas fa-stethoscope"></i>© 2025 Smart Paramedics<br>Designed and developed in Meanjin (Brisbane), Australia.<br>Designed for professional field use; no information is recorded or saved anywhere.</footer>
+<!-- End Shared Footer -->
+
+
 
 <script>
 $(document).ready(function() {

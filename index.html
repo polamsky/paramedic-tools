@@ -5,126 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Clinical Documentation Tools</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-  :root {
-    --primary: #00796b;
-    --accent: #fdd835;
-    --bg-light: #f5f7f8;
-    --text-dark: #2f3e46;
-    --card-bg: #ffffff;
-  }
-
-  body {
-    margin: 0;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: var(--bg-light);
-    color: var(--text-dark);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  header {
-    background: var(--primary);
-    color: white;
-    text-align: center;
-    padding: 25px 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  header h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    letter-spacing: 0.5px;
-  }
-
-  main {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 20px;
-    gap: 30px;
-  }
-
-  a.card {
-    background: var(--card-bg);
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    width: 300px;
-    height: 320px; /* Compact, equal size */
-    padding: 25px;
-    text-align: center;
-    border-top: 5px solid var(--primary);
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.25s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  a.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-    background: #f9fdfc;
-  }
-
-  .icon {
-    font-size: 2.8rem;
-    color: var(--primary);
-    margin-bottom: 12px;
-  }
-
-  h2 {
-    font-size: 1.25rem;
-    color: var(--primary);
-    margin: 8px 0;
-  }
-
-  p {
-    font-size: 0.93rem;
-    color: #607273;
-    margin: 10px 0 0;
-    line-height: 1.4;
-    flex-grow: 1;
-  }
-
-  .button {
-    background: var(--primary);
-    color: white;
-    padding: 8px 0;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: background 0.3s;
-    margin-top: 20px;
-  }
-
-  a.card:hover .button {
-    background: #004d40;
-  }
-
-  footer {
-    text-align: center;
-    padding: 15px 10px;
-    background: #e0f2f1;
-    color: #336d67;
-    font-size: 0.9rem;
-    border-top: 1px solid #cde3e1;
-  }
-
-  footer i {
-    color: var(--primary);
-    margin-right: 5px;
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
-  <h1><i class="fas fa-briefcase-medical"></i> Clinical Documentation Tools</h1>
+  <h1 class="master-header"><i class="fas fa-briefcase-medical"></i> Clinical Documentation Tools</h1>
 </header>
 
 <main>
@@ -147,9 +33,11 @@
   </a>
 </main>
 
-<footer>
-  <p><i class="fas fa-stethoscope"></i>© 2025 Smart Paramedics<br>Designed and developed in Meanjin (Brisbane), Australia.<br>Designed for professional field use; no information is recorded or saved anywhere.</p>
-</footer>
+<!-- Shared Footer -->
+<footer class="site-footer">
+  <p>
+    <i class="fas fa-stethoscope"></i>© 2025 Smart Paramedics<br>Designed and developed in Meanjin (Brisbane), Australia.<br>Designed for professional field use; no information is recorded or saved anywhere.</footer>
+<!-- End Shared Footer -->
 
 </body>
 </html>
