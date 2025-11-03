@@ -10,9 +10,10 @@
 </head>
 <body>
 
-<!-- Mini Header -->
-<div class="tool-header"><a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> All Tools</a></div>
-<!-- END Mini Header -->
+
+<!-- Shared header -->
+<div id="header-placeholder"></div>
+<!-- End shared header -->
 
 
 <div class="container">
@@ -159,13 +160,6 @@
 </div>
 
 
-<!-- Shared Footer -->
-<footer class="site-footer">
-  <p>
-    <i class="fas fa-stethoscope"></i>© 2025 Smart Paramedics<br>Designed and developed in Meanjin (Brisbane), Australia.<br>Designed for professional field use; no information is recorded or saved anywhere.</footer>
-<!-- End Shared Footer -->
-
-
 
 <script>
 $(document).ready(function(){
@@ -232,6 +226,17 @@ $(document).ready(function(){
   // Initial render
   buildText();
 });
+
+
+// Load header from external files
+document.addEventListener("DOMContentLoaded", function() {
+  fetch("header.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+    });
+});
+
 </script>
 </body>
 </html>
