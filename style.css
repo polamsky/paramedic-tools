@@ -214,7 +214,7 @@ a.card:hover .button { background: #004d40; }
    TOOL PAGE STRUCTURE (VIRCA + MSE)
 ----------------------------------------------------------- */
 .container { display: flex; width: 100%; }
-.left, .right { padding: 30px, 30px 100px, 30px; overflow-y: auto; }
+.left, .right { padding: 30px, 30px, 100px, 30px; overflow-y: auto; }
 .left { width: 60%; background: var(--card-bg); }
 .right {
   width: 40%;
