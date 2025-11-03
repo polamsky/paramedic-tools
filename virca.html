@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIRCA Statement Builder</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIRCA Statement Builder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
 <body>
 
-<!-- Shared header -->
+<!-- Header loaded dynamically -->
 <div id="header-placeholder"></div>
-<!-- End shared header -->
 
 <div class="container">
   <div class="left">
-    <h2>VIRCA Statement Builder</h2>
+    <h2 class="tool-title">VIRCA Statement Builder</h2>
 
     <div class="section">
       <h3>Patient Condition</h3>
@@ -28,6 +28,7 @@
         <label><input type="checkbox" value="free from coercion"> Free from coercion</label>
         <label><input type="checkbox" value="no undue influence"> No undue influence</label>
         <label><input type="checkbox" value="decision made independently"> Decision made independently</label>
+        <label><input type="checkbox" value="confirmed by witness or family"> Confirmed by witness/family</label>
       </div>
       <textarea id="voluntary-extra" placeholder="Add any additional voluntary context..."></textarea>
     </div>
@@ -49,7 +50,7 @@
         <label><input type="checkbox" value="hospital"> Hospital</label>
         <label><input type="checkbox" value="GP"> GP</label>
         <label><input type="checkbox" value="Urgent Care Clinic"> Urgent Care Clinic</label>
-        <label><input type="checkbox" value="Virtual ED"> Virtual ED</label>
+        <label><input type="checkbox" value="Telehealth"> Telehealth</label>
       </div>
       <textarea id="relevant-extra" placeholder="Add any additional relevant context..."></textarea>
     </div>
@@ -80,39 +81,58 @@
   </div>
 
   <div class="right">
-    <h2>Generated VIRCA Statements</h2>
+    <h2 class="tool-title">Generated VIRCA Statements</h2>
     <div id="output">
       <div id="voluntary-output" class="sentence">
-        <strong>Voluntary:</strong><i class="fas fa-copy copy-icon" data-target="voluntary"></i>
+        <strong>Voluntary:</strong>
+        <i class="fas fa-copy copy-icon" data-target="voluntary"></i>
         <p class="content"></p>
       </div>
       <div id="informed-output" class="sentence">
-        <strong>Informed:</strong><i class="fas fa-copy copy-icon" data-target="informed"></i>
+        <strong>Informed:</strong>
+        <i class="fas fa-copy copy-icon" data-target="informed"></i>
         <p class="content"></p>
       </div>
       <div id="relevant-output" class="sentence">
-        <strong>Relevant:</strong><i class="fas fa-copy copy-icon" data-target="relevant"></i>
+        <strong>Relevant:</strong>
+        <i class="fas fa-copy copy-icon" data-target="relevant"></i>
         <p class="content"></p>
       </div>
       <div id="capacity-output" class="sentence">
-        <strong>Capacity:</strong><i class="fas fa-copy copy-icon" data-target="capacity"></i>
+        <strong>Capacity:</strong>
+        <i class="fas fa-copy copy-icon" data-target="capacity"></i>
         <p class="content"></p>
       </div>
       <div id="advice-output" class="sentence">
-        <strong>Advice:</strong><i class="fas fa-copy copy-icon" data-target="advice"></i>
+        <strong>Advice:</strong>
+        <i class="fas fa-copy copy-icon" data-target="advice"></i>
         <p class="content"></p>
       </div>
     </div>
     <button id="copyAll">📋 Copy All VIRCA Summary</button>
   </div>
 </div>
-<!-- Floating Toggle Button -->
+
+<!-- Floating Toggle Button (mobile) -->
 <button id="toggleView" class="toggle-btn">
   <i class="fas fa-arrow-down"></i> Jump to Output
 </button>
 
+<!-- Footer loaded dynamically -->
+<div id="footer-placeholder"></div>
 
 <script>
+// Load shared header & footer
+document.addEventListener("DOMContentLoaded", function() {
+  fetch("header.html").then(r=>r.text()).then(h=>{
+    document.getElementById("header-placeholder").innerHTML = h;
+  });
+  fetch("footer.html").then(r=>r.text()).then(f=>{
+    document.getElementById("footer-placeholder").innerHTML = f;
+  });
+});
+
+// VIRCA sentence building
 $(document).ready(function() {
   function buildText() {
     const cond = $('#condition').val().trim() || 'their condition';
@@ -123,20 +143,19 @@ $(document).ready(function() {
     const a = $('#advice-section input:checked').map((_,e)=>e.value).get();
 
     const t = {
-      voluntary: `The patient’s decision to refuse treatment and/or transport was made voluntarily${v.length ? ', being ' + v.join(', ') + '.' : '.'} ${$('#voluntary-extra').val().trim()}`,
-      informed: `The patient was informed regarding risks of ${cond}${i.length ? ', including ' + i.join(', ') + '.' : '.'} ${$('#informed-extra').val().trim()}`,
+      voluntary: `The patient’s decision to refuse treatment and/or transport was made voluntarily${v.length ? ', being ' + v.join(', ') + '.' : '.'} ${$('#voluntary-extra').val().trim()}`.trim(),
+      informed: `The patient was informed regarding ${cond}${i.length ? ', including ' + i.join(', ') + '.' : '.'} ${$('#informed-extra').val().trim()}`.trim(),
       relevant: r.length ? `The patient refused transport for assessment at ${r.join(', ')}.` : 'The patient’s refusal applied to specific treatment or transport recommendations.',
-      capacity: `The patient demonstrated decision-making capacity${c.length ? ', being ' + c.join(', ') + '.' : '.'} ${$('#capacity-extra').val().trim()}`,
-      advice: `The patient was provided with safety and self-care advice${a.length ? ', including to ' + a.join(', ') + '.' : '.'} ${$('#advice-extra').val().trim()} Appropriate advice was given to promote the patient’s comfort and safety.`
+      capacity: `The patient demonstrated decision-making capacity${c.length ? ', being ' + c.join(', ') + '.' : '.'} ${$('#capacity-extra').val().trim()}`.trim(),
+      advice: `The patient was provided with safety and self-care advice${a.length ? ', including to ' + a.join(', ') + '.' : '.'} ${$('#advice-extra').val().trim()} Appropriate advice was given to promote the patient’s comfort and safety.`.trim()
     };
 
     Object.entries(t).forEach(([key, value]) => {
-      $(`#${key}-output .content`).text(value.trim());
+      $(`#${key}-output .content`).text(value);
     });
   }
 
-  $(document).on('input change', 'input, textarea', buildText);
-
+  // Copy individual
   $(document).on('click', '.copy-icon', function(){
     const section = $(this).data('target');
     const text = $(`#${section}-output .content`).text().trim();
@@ -145,46 +164,51 @@ $(document).ready(function() {
     setTimeout(()=>$(this).removeClass('fa-check').addClass('fa-copy'),1000);
   });
 
+  // Copy all
   $('#copyAll').click(function(){
-    const combined = $('#output .content').map((_,e)=>$(e).text().trim()).get().join("\n\n");
-    navigator.clipboard.writeText(combined);
+    const all = $('#output .content').map((_,e)=>$(e).text().trim()).get().join("\n\n");
+    navigator.clipboard.writeText(all);
     $(this).text('✅ Copied!');
     setTimeout(()=>$(this).text('📋 Copy All VIRCA Summary'),1200);
   });
 
+  // Auto-update
+  $(document).on('input change', 'input, textarea', buildText);
   buildText();
 });
 
-// Adds Toggle scroll up and down button functionalities
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleBtn = document.getElementById("toggleView");
-  const inputSection = document.querySelector(".left");
-  const outputSection = document.querySelector(".right");
+// Floating toggle logic (mobile only; fade in/out)
+(function(){
+  const btn = document.getElementById('toggleView');
+  const left = document.querySelector('.left');
+  const right = document.querySelector('.right');
   let showingOutput = false;
 
-  toggleBtn.addEventListener("click", () => {
+  function onScroll(){
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y > 120) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+      // Reset label when near top
+      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      showingOutput = false;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  btn.addEventListener('click', () => {
     if (!showingOutput) {
-      outputSection.scrollIntoView({ behavior: "smooth" });
-      toggleBtn.innerHTML = '<i class="fas fa-arrow-up"></i> Jump to Input';
+      right.scrollIntoView({ behavior: 'smooth' });
+      btn.innerHTML = '<i class="fas fa-arrow-up"></i> Jump to Input';
       showingOutput = true;
     } else {
-      inputSection.scrollIntoView({ behavior: "smooth" });
-      toggleBtn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      left.scrollIntoView({ behavior: 'smooth' });
+      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
       showingOutput = false;
     }
   });
-});
-
-
-// Load header from external files
-document.addEventListener("DOMContentLoaded", function() {
-  fetch("header.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("header-placeholder").innerHTML = data;
-    });
-});
-
+})();
 </script>
 
 </body>

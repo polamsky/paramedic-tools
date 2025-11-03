@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Mental Status Examination Generator</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MSE Generator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
-
-<!-- Shared header -->
+<!-- Header loaded dynamically -->
 <div id="header-placeholder"></div>
-<!-- End shared header -->
-
 
 <div class="container">
   <div class="left">
-    <h2>Mental Status Examination (MSE)</h2>
+    <h2 class="tool-title">Mental Status Examination (MSE)</h2>
 
-    <!-- Appearance -->
     <div class="section" id="appearance-section">
       <h3>Appearance</h3>
-      <p class="description">Physical presentation, grooming, clothing, and hygiene. Note neglect, agitation, unusual attire (e.g., weather-inappropriate).</p>
+      <p class="description">Physical presentation, grooming, clothing, and hygiene. Note neglect, agitation, or unusual attire.</p>
       <div class="checkbox-group">
         <label><input type="checkbox" value="neatly dressed and groomed"> Neatly dressed / groomed</label>
         <label><input type="checkbox" value="dishevelled or unkempt"> Dishevelled / unkempt</label>
@@ -34,7 +30,6 @@
       <textarea id="appearance-extra" placeholder="Additional notes about appearance..."></textarea>
     </div>
 
-    <!-- Behaviour -->
     <div class="section" id="behaviour-section">
       <h3>Behaviour</h3>
       <p class="description">Observed actions, movements, engagement. Look for cooperation, restlessness, agitation, guardedness, eye contact, psychomotor change.</p>
@@ -49,7 +44,6 @@
       <textarea id="behaviour-extra" placeholder="Additional notes about behaviour..."></textarea>
     </div>
 
-    <!-- Speech -->
     <div class="section" id="speech-section">
       <h3>Speech</h3>
       <p class="description">Rate, rhythm, tone, coherence. Reflects thought speed, emotional state, sometimes neurological status.</p>
@@ -63,39 +57,33 @@
       <textarea id="speech-extra" placeholder="Additional notes about speech..."></textarea>
     </div>
 
-    <!-- Mood / Affect -->
     <div class="section" id="mood-section">
       <h3>Mood / Affect</h3>
-      <p class="description">Subjective mood and observed affect/visible emotion (range, congruence). Incongruence or restriction can indicate psychopathology.</p>
+      <p class="description">Subjective mood and observed affect (range, congruence). Incongruence or restriction can indicate psychopathology.</p>
       <div class="checkbox-group">
-        <label><input type="checkbox" value="reports mood as euthymic"> Euthymic (normal) mood</label>
+        <label><input type="checkbox" value="reports mood as euthymic"> Euthymic (normal)</label>
         <label><input type="checkbox" value="reports feeling depressed or low"> Depressed / low</label>
         <label><input type="checkbox" value="anxious or tense"> Anxious / tense</label>
         <label><input type="checkbox" value="irritable or angry"> Irritable / angry</label>
+        <label><input type="checkbox" value="affect congruent with mood"> Affect congruent with mood</label>
         <label><input type="checkbox" value="affect restricted or flat"> Restricted / flat affect</label>
-        <label><input type="checkbox" value="affect congruent with mood"> Affect congruent <span class="description">(visible emotion matches what they are talking about or how they say they feel)</span></label>
-        <label><input type="checkbox" value="affect incongruent with mood"> Affect incongruent <span class="description">(visible emotion is different they are talking about or how they say they feel)</span></label>
-        
-
       </div>
       <textarea id="mood-extra" placeholder="Additional notes about mood/affect..."></textarea>
     </div>
 
-    <!-- Thought Form -->
     <div class="section" id="thoughtform-section">
       <h3>Thought Form</h3>
       <p class="description">Structure/flow of thoughts. Disorganisation, tangentiality, flight of ideas may suggest mania or psychosis.</p>
       <div class="checkbox-group">
         <label><input type="checkbox" value="logical and coherent"> Logical / coherent</label>
         <label><input type="checkbox" value="flight of ideas or tangential"> Flight of ideas / tangential</label>
-        <label><input type="checkbox" value="circumstantial or over-inclusive"> Circumstantial / over-inclusive <span class="description">(excessive amount of unnecessary detail, side points, or irrelevant information before eventually returning to the main idea or answering a question</span></label>
-        <label><input type="checkbox" value="thought blocking noted"> Thought blocking <span class="description">(sudden interruption in the train of thought or speech before a thought or idea is completed)</span></label>
+        <label><input type="checkbox" value="circumstantial or over-inclusive"> Circumstantial / over-inclusive</label>
+        <label><input type="checkbox" value="thought blocking noted"> Thought blocking</label>
         <label><input type="checkbox" value="disorganised or incoherent thought processes"> Disorganised / incoherent</label>
       </div>
       <textarea id="thoughtform-extra" placeholder="Additional notes about thought form..."></textarea>
     </div>
 
-    <!-- Thought Content -->
     <div class="section" id="thoughtcontent-section">
       <h3>Thought Content</h3>
       <p class="description">Themes, beliefs, abnormal thoughts (delusions, obsessions, suicidality). Important for risk and diagnosis.</p>
@@ -110,7 +98,6 @@
       <textarea id="thoughtcontent-extra" placeholder="Additional notes about thought content..."></textarea>
     </div>
 
-    <!-- Perception -->
     <div class="section" id="perception-section">
       <h3>Perception</h3>
       <p class="description">Sensory experience. Hallucinations/illusions can indicate psychosis, intoxication, or organic dysfunction.</p>
@@ -124,12 +111,11 @@
       <textarea id="perception-extra" placeholder="Additional notes about perception..."></textarea>
     </div>
 
-    <!-- Cognition -->
     <div class="section" id="cognition-section">
       <h3>Cognition</h3>
       <p class="description">Orientation, attention, memory, concentration. Abnormalities may indicate delirium, dementia, intoxication.</p>
       <div class="checkbox-group">
-        <label><input type="checkbox" value="alert and oriented to time, place, and person"> Alert / oriented to time, place and person</label>
+        <label><input type="checkbox" value="alert and oriented to time, place, and person"> Alert / oriented ×3</label>
         <label><input type="checkbox" value="mild confusion or disorientation noted"> Mild disorientation</label>
         <label><input type="checkbox" value="impaired attention or concentration"> Impaired concentration</label>
         <label><input type="checkbox" value="short-term memory intact"> Memory intact</label>
@@ -138,7 +124,6 @@
       <textarea id="cognition-extra" placeholder="Additional notes about cognition..."></textarea>
     </div>
 
-    <!-- Insight & Judgment -->
     <div class="section" id="insight-section">
       <h3>Insight & Judgment</h3>
       <p class="description">Awareness of illness and decision-making capacity. Poor insight affects adherence/safety; judgment informs risk.</p>
@@ -153,62 +138,62 @@
   </div>
 
   <div class="right">
-    <h2>Generated MSE Summary</h2>
+    <h2 class="tool-title">Generated MSE Summary</h2>
     <div id="output"></div>
     <button id="copyAll">📋 Copy Full MSE</button>
   </div>
 </div>
 
-<!-- Floating Toggle Button -->
+<!-- Floating Toggle Button (mobile) -->
 <button id="toggleView" class="toggle-btn">
   <i class="fas fa-arrow-down"></i> Jump to Output
 </button>
 
-
+<!-- Footer loaded dynamically -->
+<div id="footer-placeholder"></div>
 
 <script>
+// Load shared header & footer
+document.addEventListener("DOMContentLoaded", function() {
+  fetch("header.html").then(r=>r.text()).then(h=>{
+    document.getElementById("header-placeholder").innerHTML = h;
+  });
+  fetch("footer.html").then(r=>r.text()).then(f=>{
+    document.getElementById("footer-placeholder").innerHTML = f;
+  });
+});
+
+// Build MSE output
 $(document).ready(function(){
-  const sections = [
-    'appearance','behaviour','speech','mood',
-    'thoughtform','thoughtcontent','perception',
-    'cognition','insight'
-  ];
+  const sections = ['appearance','behaviour','speech','mood','thoughtform','thoughtcontent','perception','cognition','insight'];
+  const nameMap = { thoughtform: 'Thought Form', thoughtcontent: 'Thought Content' };
 
   function buildText(){
-  $('#output').empty();
+    $('#output').empty();
+    sections.forEach(sec=>{
+      const vals = $(`#${sec}-section input:checked`).map((_,e)=>e.value).get();
+      const extra = $(`#${sec}-extra`).val()?.trim() || '';
+      const heading = nameMap[sec] || (sec.charAt(0).toUpperCase()+sec.slice(1));
+      let content = '';
+      if (vals.length) content = vals.join(', ') + (extra ? '. ' + extra : '.');
+      else if (extra) content = extra;
 
-  const nameMap = {
-    thoughtform: 'Thought Form',
-    thoughtcontent: 'Thought Content'
-  };
+      const html = `
+        <div id="${sec}-output" class="sentence">
+          <strong>${heading}:</strong>
+          <i class="fas fa-copy copy-icon" data-target="${sec}" title="Copy ${heading}"></i>
+          <p class="content">${content}</p>
+        </div>`;
+      $('#output').append(html);
+    });
+  }
 
-  sections.forEach(sec=>{
-    const vals = $(`#${sec}-section input:checked`).map((_,e)=>e.value).get();
-    const extra = $(`#${sec}-extra`).val()?.trim() || '';
-    const heading = nameMap[sec] || (sec.charAt(0).toUpperCase() + sec.slice(1));
-    let content = '';
-    if (vals.length) content = vals.join(', ') + (extra ? '. ' + extra : '.');
-    else if (extra) content = extra;
-
-    const html = `
-      <div id="${sec}-output" class="sentence">
-        <strong>${heading}:</strong>
-        <i class="fas fa-copy copy-icon" data-target="${sec}" title="Copy ${heading}"></i>
-        <p class="content">${content}</p>
-      </div>`;
-    $('#output').append(html);
-  });
-}
-
-  // Live updates
   $(document).on('input change', 'input, textarea', buildText);
 
-  // Copy individual section as "Heading: content"
+  // Copy individual section: "Heading: content"
   $(document).on('click', '.copy-icon', function(){
     const id = $(this).data('target');
-    let heading = id.charAt(0).toUpperCase() + id.slice(1);
-    if (id === 'thoughtform') heading = 'Thought Form';
-    if (id === 'thoughtcontent') heading = 'Thought Content';
+    const heading = nameMap[id] || (id.charAt(0).toUpperCase()+id.slice(1));
     const text = $(`#${id}-output .content`).text().trim();
     const formatted = `${heading}: ${text}`;
     navigator.clipboard.writeText(formatted);
@@ -216,52 +201,53 @@ $(document).ready(function(){
     setTimeout(()=>$(this).removeClass('fa-check').addClass('fa-copy'),1000);
   });
 
-  // Copy full MSE, each on new line as "Heading: content"
+  // Copy all: "Heading: content" lines
   $('#copyAll').click(function(){
     const lines = $('#output .sentence').map((_,e)=>{
       const heading = $(e).find('strong').text().trim().replace(/:$/,'');
       const text = $(e).find('.content').text().trim();
       return `${heading}: ${text}`;
-    }).get().filter(x => x.endsWith(':') === false); // avoid empty lines with only headings
+    }).get().filter(t => !t.endsWith(':'));
     navigator.clipboard.writeText(lines.join("\n\n"));
     $(this).text('✅ Copied!');
     setTimeout(()=>$(this).text('📋 Copy Full MSE'),1200);
   });
 
-  // Initial render
   buildText();
 });
 
-// Adds Toggle scroll up and down button functionalities
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleBtn = document.getElementById("toggleView");
-  const inputSection = document.querySelector(".left");
-  const outputSection = document.querySelector(".right");
+// Floating toggle logic (mobile only; fade in/out)
+(function(){
+  const btn = document.getElementById('toggleView');
+  const left = document.querySelector('.left');
+  const right = document.querySelector('.right');
   let showingOutput = false;
 
-  toggleBtn.addEventListener("click", () => {
+  function onScroll(){
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y > 120) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      showingOutput = false;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  btn.addEventListener('click', () => {
     if (!showingOutput) {
-      outputSection.scrollIntoView({ behavior: "smooth" });
-      toggleBtn.innerHTML = '<i class="fas fa-arrow-up"></i> Jump to Input';
+      right.scrollIntoView({ behavior: 'smooth' });
+      btn.innerHTML = '<i class="fas fa-arrow-up"></i> Jump to Input';
       showingOutput = true;
     } else {
-      inputSection.scrollIntoView({ behavior: "smooth" });
-      toggleBtn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      left.scrollIntoView({ behavior: 'smooth' });
+      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
       showingOutput = false;
     }
   });
-});
-
-
-// Load header from external files
-document.addEventListener("DOMContentLoaded", function() {
-  fetch("header.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("header-placeholder").innerHTML = data;
-    });
-});
-
+})();
 </script>
+
 </body>
 </html>

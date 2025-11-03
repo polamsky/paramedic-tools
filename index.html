@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Clinical Documentation Tools</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinical Documentation Tools</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <h1 class="master-header"><i class="fas fa-briefcase-medical"></i> Clinical Documentation Tools</h1>
+<header class="hero">
+  <h1><i class="fas fa-briefcase-medical"></i> Clinical Documentation Tools</h1>
 </header>
 
-<main>
+<main class="index">
   <a href="virca.html" class="card">
     <div>
       <div class="icon"><i class="fas fa-file-signature"></i></div>
@@ -33,11 +33,17 @@
   </a>
 </main>
 
-<!-- Shared Footer -->
-<footer class="site-footer">
-  <p>
-    <i class="fas fa-stethoscope"></i>© 2025 Smart Paramedics<br>Designed and developed in Meanjin (Brisbane), Australia.<br>Designed for professional field use; no information is recorded or saved anywhere.</footer>
-<!-- End Shared Footer -->
+<!-- Footer loaded dynamically -->
+<div id="footer-placeholder"></div>
+
+<script>
+// Load footer from external file
+document.addEventListener("DOMContentLoaded", function() {
+  fetch("footer.html").then(r => r.text()).then(html => {
+    document.getElementById("footer-placeholder").innerHTML = html;
+  });
+});
+</script>
 
 </body>
 </html>
