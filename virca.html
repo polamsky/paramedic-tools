@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIRCA Statement Builder</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --primary: #00796b;
+    --accent: #fdd835;
+    --bg-light: #f5f7f8;
+    --text-dark: #2f3e46;
+    --card-bg: #ffffff;
+    --border-light: #ddd;
+  }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg-light);
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    color: var(--text-dark);
+  }
+
+  .container {
+    display: flex;
+    width: 100%;
+  }
+
+  .left, .right {
+    padding: 30px;
+    overflow-y: auto;
+  }
+
+  .left {
+    width: 60%;
+    background: var(--card-bg);
+  }
+
+  .right {
+    width: 40%;
+    background: #fffbe6;
+    border-left: 2px solid var(--accent);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    box-shadow: -4px 0 8px rgba(0,0,0,0.05);
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 1.6rem;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 6px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+
+  input[type="text"], textarea {
+    width: 100%;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+  }
+
+  input[type="text"]:focus, textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+  }
+
+  .section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .checkbox-group label {
+    display: block;
+    margin: 6px 0;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+
+  input[type="checkbox"] {
+    accent-color: var(--primary);
+    transform: scale(1.2);
+    margin-right: 8px;
+  }
+
+  .sentence {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    line-height: 1.5;
+  }
+
+  .sentence strong {
+    color: var(--primary);
+    font-size: 1.05rem;
+  }
+
+  .copy-icon {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    cursor: pointer;
+    color: var(--primary);
+    transition: color 0.2s;
+  }
+
+  .copy-icon:hover {
+    color: #004d40;
+  }
+
+  #copyAll {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+    margin-top: 15px;
+  }
+
+  #copyAll:hover {
+    background: #004d40;
+  }
+
+  #output {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="left">
+    <h2>VIRCA Statement Builder</h2>
+
+    <div class="section">
+      <h3>Patient Condition</h3>
+      <input type="text" id="condition" placeholder="e.g. chest pain, shortness of breath">
+    </div>
+
+    <div class="section" id="voluntary-section">
+      <h3>Voluntary</h3>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="free from coercion"> Free from coercion</label>
+        <label><input type="checkbox" value="no undue influence"> No undue influence</label>
+        <label><input type="checkbox" value="decision made independently"> Decision made independently</label>
+      </div>
+      <textarea id="voluntary-extra" placeholder="Add any additional voluntary context..."></textarea>
+    </div>
+
+    <div class="section" id="informed-section">
+      <h3>Informed</h3>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="condition explained"> Condition explained</label>
+        <label><input type="checkbox" value="risks of refusal discussed"> Risks of refusal discussed</label>
+        <label><input type="checkbox" value="potential outcomes explained"> Potential outcomes explained</label>
+        <label><input type="checkbox" value="information provided in plain language"> Plain language used</label>
+      </div>
+      <textarea id="informed-extra" placeholder="Add any additional informed context..."></textarea>
+    </div>
+
+    <div class="section" id="relevant-section">
+      <h3>Relevant</h3>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="hospital"> Hospital</label>
+        <label><input type="checkbox" value="GP"> GP</label>
+        <label><input type="checkbox" value="Urgent Care Clinic"> Urgent Care Clinic</label>
+        <label><input type="checkbox" value="Virtual ED"> Virtual ED</label>
+      </div>
+      <textarea id="relevant-extra" placeholder="Add any additional relevant context..."></textarea>
+    </div>
+
+    <div class="section" id="capacity-section">
+      <h3>Capacity</h3>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="alert and oriented"> Alert and oriented</label>
+        <label><input type="checkbox" value="understood information"> Understood information</label>
+        <label><input type="checkbox" value="weighed options and communicated decision"> Weighed options and communicated decision</label>
+        <label><input type="checkbox" value="no cognitive impairment"> No cognitive impairment</label>
+      </div>
+      <textarea id="capacity-extra" placeholder="Add any additional capacity context..."></textarea>
+    </div>
+
+    <div class="section" id="advice-section">
+      <h3>Advice</h3>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="call 000 if symptoms worsen"> Call 000 if symptoms worsen</label>
+        <label><input type="checkbox" value="follow up with GP within 24–48 hours"> Follow up with GP</label>
+        <label><input type="checkbox" value="remain with a responsible adult"> Remain with responsible adult</label>
+        <label><input type="checkbox" value="attend hospital if symptoms worsen"> Attend hospital if symptoms worsen</label>
+        <label><input type="checkbox" value="attend Urgent Care Clinic if symptoms persist"> Attend Urgent Care Clinic</label>
+        <label><input type="checkbox" value="maintain hydration and rest"> Maintain hydration and rest</label>
+      </div>
+      <textarea id="advice-extra" placeholder="Add any additional advice context..."></textarea>
+    </div>
+  </div>
+
+  <div class="right">
+    <h2>Generated VIRCA Statements</h2>
+    <div id="output">
+      <div id="voluntary-output" class="sentence">
+        <strong>Voluntary:</strong><i class="fas fa-copy copy-icon" data-target="voluntary"></i>
+        <p class="content"></p>
+      </div>
+      <div id="informed-output" class="sentence">
+        <strong>Informed:</strong><i class="fas fa-copy copy-icon" data-target="informed"></i>
+        <p class="content"></p>
+      </div>
+      <div id="relevant-output" class="sentence">
+        <strong>Relevant:</strong><i class="fas fa-copy copy-icon" data-target="relevant"></i>
+        <p class="content"></p>
+      </div>
+      <div id="capacity-output" class="sentence">
+        <strong>Capacity:</strong><i class="fas fa-copy copy-icon" data-target="capacity"></i>
+        <p class="content"></p>
+      </div>
+      <div id="advice-output" class="sentence">
+        <strong>Advice:</strong><i class="fas fa-copy copy-icon" data-target="advice"></i>
+        <p class="content"></p>
+      </div>
+    </div>
+    <button id="copyAll">📋 Copy All VIRCA Summary</button>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  function buildText() {
+    const cond = $('#condition').val().trim() || 'their condition';
+    const v = $('#voluntary-section input:checked').map((_,e)=>e.value).get();
+    const i = $('#informed-section input:checked').map((_,e)=>e.value).get();
+    const r = $('#relevant-section input:checked').map((_,e)=>e.value).get();
+    const c = $('#capacity-section input:checked').map((_,e)=>e.value).get();
+    const a = $('#advice-section input:checked').map((_,e)=>e.value).get();
+
+    const t = {
+      voluntary: `The patient’s decision to refuse treatment and/or transport was made voluntarily${v.length ? ', being ' + v.join(', ') + '.' : '.'} ${$('#voluntary-extra').val().trim()}`,
+      informed: `The patient was informed regarding risks of ${cond}${i.length ? ', including ' + i.join(', ') + '.' : '.'} ${$('#informed-extra').val().trim()}`,
+      relevant: r.length ? `The patient refused transport for assessment at ${r.join(', ')}.` : 'The patient’s refusal applied to specific treatment or transport recommendations.',
+      capacity: `The patient demonstrated decision-making capacity${c.length ? ', being ' + c.join(', ') + '.' : '.'} ${$('#capacity-extra').val().trim()}`,
+      advice: `The patient was provided with safety and self-care advice${a.length ? ', including to ' + a.join(', ') + '.' : '.'} ${$('#advice-extra').val().trim()} Appropriate advice was given to promote the patient’s comfort and safety.`
+    };
+
+    Object.entries(t).forEach(([key, value]) => {
+      $(`#${key}-output .content`).text(value.trim());
+    });
+  }
+
+  $(document).on('input change', 'input, textarea', buildText);
+
+  $(document).on('click', '.copy-icon', function(){
+    const section = $(this).data('target');
+    const text = $(`#${section}-output .content`).text().trim();
+    navigator.clipboard.writeText(text);
+    $(this).removeClass('fa-copy').addClass('fa-check');
+    setTimeout(()=>$(this).removeClass('fa-check').addClass('fa-copy'),1000);
+  });
+
+  $('#copyAll').click(function(){
+    const combined = $('#output .content').map((_,e)=>$(e).text().trim()).get().join("\n\n");
+    navigator.clipboard.writeText(combined);
+    $(this).text('✅ Copied!');
+    setTimeout(()=>$(this).text('📋 Copy All VIRCA Summary'),1200);
+  });
+
+  buildText();
+});
+</script>
+
+</body>
+</html>
