@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FLACC Pain Assessment</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<!-- Header loaded dynamically -->
+<div id="header-placeholder"></div>
+
+<div class="container">
+  <div class="left">
+    <h2 class="tool-title">FLACC Pain Assessment</h2>
+
+    <div class="section">
+      <h3>General Notes</h3>
+      <p class="description">Optional context such as setting, baseline behaviour, or interventions (e.g., parental presence, analgesia).</p>
+      <textarea id="flacc-notes" placeholder="Add overall context or notes (optional)..."></textarea>
+    </div>
+
+    <!-- Each FLACC category -->
+    <div class="section" id="faces-section">
+      <h3>Faces</h3>
+      <div class="checkbox-group">
+        <label><input type="radio" name="faces" value="0" data-text="No particular expression or smile"> 0 — No particular expression or smile</label>
+        <label><input type="radio" name="faces" value="1" data-text="Occasional grimace or frown; withdrawn, disinterested"> 1 — Occasional grimace/frown; withdrawn, disinterested</label>
+        <label><input type="radio" name="faces" value="2" data-text="Frequent or constant frown; clenched jaw; quivering chin"> 2 — Frequent or constant frown; clenched jaw; quivering chin</label>
+      </div>
+    </div>
+
+    <div class="section" id="legs-section">
+      <h3>Legs</h3>
+      <div class="checkbox-group">
+        <label><input type="radio" name="legs" value="0" data-text="Normal position or relaxed"> 0 — Normal position or relaxed</label>
+        <label><input type="radio" name="legs" value="1" data-text="Uneasy, restless, or tense"> 1 — Uneasy, restless, or tense</label>
+        <label><input type="radio" name="legs" value="2" data-text="Kicking or legs drawn up"> 2 — Kicking or legs drawn up</label>
+      </div>
+    </div>
+
+    <div class="section" id="activity-section">
+      <h3>Activity</h3>
+      <div class="checkbox-group">
+        <label><input type="radio" name="activity" value="0" data-text="Lying quietly; normal position; moves easily"> 0 — Lying quietly; normal position; moves easily</label>
+        <label><input type="radio" name="activity" value="1" data-text="Squirming; shifting back and forth; tense"> 1 — Squirming; shifting back and forth; tense</label>
+        <label><input type="radio" name="activity" value="2" data-text="Arched, rigid, or jerking"> 2 — Arched, rigid, or jerking</label>
+      </div>
+    </div>
+
+    <div class="section" id="cry-section">
+      <h3>Cry</h3>
+      <div class="checkbox-group">
+        <label><input type="radio" name="cry" value="0" data-text="No cry (awake or asleep)"> 0 — No cry (awake or asleep)</label>
+        <label><input type="radio" name="cry" value="1" data-text="Moans or whimpers; occasional complaint"> 1 — Moans or whimpers; occasional complaint</label>
+        <label><input type="radio" name="cry" value="2" data-text="Crying steadily; screams or sobs; frequent complaints"> 2 — Crying steadily; screams or sobs; frequent complaints</label>
+      </div>
+    </div>
+
+    <div class="section" id="consolability-section">
+      <h3>Consolability</h3>
+      <div class="checkbox-group">
+        <label><input type="radio" name="consolability" value="0" data-text="Content and relaxed"> 0 — Content and relaxed</label>
+        <label><input type="radio" name="consolability" value="1" data-text="Reassured by occasional touching, hugging, or talking; distractible"> 1 — Reassured by occasional touching, hugging, or talking; distractible</label>
+        <label><input type="radio" name="consolability" value="2" data-text="Difficult to console or comfort"> 2 — Difficult to console or comfort</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <h2 class="tool-title">Generated FLACC Summary</h2>
+    <div id="output"></div>
+    <button id="copyAll">📋 Copy Full FLACC Summary</button>
+  </div>
+</div>
+
+<button id="toggleView" class="toggle-btn">
+  <i class="fas fa-arrow-down"></i> Jump to Output
+</button>
+
+<div id="footer-placeholder"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  fetch("header.html").then(r=>r.text()).then(h=>{document.getElementById("header-placeholder").innerHTML = h;});
+  fetch("footer.html").then(r=>r.text()).then(f=>{document.getElementById("footer-placeholder").innerHTML = f;});
+});
+
+$(document).ready(function(){
+  const groups = ['faces','legs','activity','cry','consolability'];
+
+  function getSelection(name) {
+    const $sel = $(`input[name="${name}"]:checked`);
+    if ($sel.length === 0) return {score: null, text: ''};
+    return {score: parseInt($sel.val(), 10), text: $sel.data('text')};
+  }
+
+  function painCategory(total) {
+    if (total === 0) return 'relaxed and comfortable';
+    if (total <= 3) return 'mild discomfort';
+    if (total <= 6) return 'moderate pain';
+    return 'severe pain';
+  }
+
+  function buildText(){
+  const sel = {};
+  let total = 0;
+  groups.forEach(g => {
+    sel[g] = getSelection(g);
+    if (sel[g].score !== null && !isNaN(sel[g].score)) total += sel[g].score;
+  });
+
+  const notes = $('#flacc-notes').val().trim();
+  const category = painCategory(total);
+
+  let outputText = `FLACC Score: ${isNaN(total) ? '—' : total}/10 - ${category}`;
+  if (notes) outputText += `\n\nNotes: ${notes}\n`;
+  outputText += `\n`;
+
+  groups.forEach(g => {
+    if (sel[g].text) {
+      const header = g.charAt(0).toUpperCase() + g.slice(1);
+      outputText += `${header}: ${sel[g].score} - ${sel[g].text}\n`;
+    }
+  });
+
+  const html = outputText.split('\n').filter(Boolean).map(line => `<div class='sentence'><strong>${line}</strong></div>`).join('');
+  $('#output').html(html);
+}
+
+
+  $(document).on('change', 'input[type="radio"]', buildText);
+
+  $('#copyAll').on('click', function(){
+    const text = $('#output .sentence').map((_,e)=>$(e).text().trim()).get().join("\n");
+    navigator.clipboard.writeText(text);
+    $(this).text('✅ Copied!');
+    setTimeout(()=>$(this).text('📋 Copy Full FLACC Summary'),1200);
+  });
+
+  buildText();
+});
+
+// Floating toggle (mobile)
+(function(){
+  const btn = document.getElementById('toggleView');
+  const left = document.querySelector('.left');
+  const right = document.querySelector('.right');
+  let showingOutput = false;
+  function onScroll(){
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y > 120) btn.classList.add('visible');
+    else {
+      btn.classList.remove('visible');
+      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      showingOutput = false;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  btn.addEventListener('click', () => {
+    if (!showingOutput) {
+      right.scrollIntoView({ behavior: 'smooth' });
+      btn.innerHTML = '<i class="fas fa-arrow-up"></i> Jump to Input';
+      showingOutput = true;
+    } else {
+      left.scrollIntoView({ behavior: 'smooth' });
+      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      showingOutput = false;
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
