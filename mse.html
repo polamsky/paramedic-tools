@@ -159,6 +159,11 @@
   </div>
 </div>
 
+<!-- Floating Toggle Button -->
+<button id="toggleView" class="toggle-btn">
+  <i class="fas fa-arrow-down"></i> Jump to Output
+</button>
+
 
 
 <script>
@@ -225,6 +230,26 @@ $(document).ready(function(){
 
   // Initial render
   buildText();
+});
+
+// Adds Toggle scroll up and down button functionalities
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.getElementById("toggleView");
+  const inputSection = document.querySelector(".left");
+  const outputSection = document.querySelector(".right");
+  let showingOutput = false;
+
+  toggleBtn.addEventListener("click", () => {
+    if (!showingOutput) {
+      outputSection.scrollIntoView({ behavior: "smooth" });
+      toggleBtn.innerHTML = '<i class="fas fa-arrow-up"></i> Jump to Input';
+      showingOutput = true;
+    } else {
+      inputSection.scrollIntoView({ behavior: "smooth" });
+      toggleBtn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      showingOutput = false;
+    }
+  });
 });
 
 
