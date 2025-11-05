@@ -11,13 +11,13 @@
 <!-- footer.html -->
 <footer class="site-footer">
   <p>
-    <i class="fas fa-stethoscope"></i>
+    <object type="image/svg+xml" data="logo-teal.svg" class="logo-icon-footer"></object>
     © <span id="currentYear"></span> Smart Paramedics - Designed and developed in Meanjin (Brisbane), Australia.<br>Created for professional field use; no information is recorded or saved anywhere.
   </p>
 </footer>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("currentYear").textContent = new Date().getFullYear();
-  });
+$(document).ready(function() {
+  $('#currentYear').text(new Date().getFullYear());
+});
 </script>
