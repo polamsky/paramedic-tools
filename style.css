@@ -109,6 +109,12 @@ p { line-height: 1.5; color: #555; }
     left: 0;
     right: 0;
     z-index: 1000;
+    width: 100%;
+    display: flex;
+    lex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 
   /* Adjust page layout so content isn't hidden */
@@ -121,6 +127,13 @@ p { line-height: 1.5; color: #555; }
     height: calc(100vh - 110px);
     overflow-y: hidden;
   }
+}
+
+.footer-left {
+    width: 100px;
+}
+.footer-right {
+
 }
 
 /* ----------------------------------------------------------

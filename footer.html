@@ -10,14 +10,8 @@
 
 <!-- footer.html -->
 <footer class="site-footer">
-  <p>
+<div class="footer-left">
     <object type="image/svg+xml" data="logo-teal.svg" class="logo-icon-footer"></object>
-    © <span id="currentYear"></span> Smart Paramedics - Designed and developed in Meanjin (Brisbane), Australia.<br>Created for professional field use; no information is recorded or saved anywhere.
-  </p>
+  </div>
+  <div class="footer-right"> © <script>new Date().getFullYear()</script> Smart Paramedics - Designed and developed in Meanjin (Brisbane), Australia.<br>Created for professional field use; no information is recorded or saved anywhere. </div>
 </footer>
-
-<script>
-$(document).ready(function() {
-  $('#currentYear').text(new Date().getFullYear());
-});
-</script>
