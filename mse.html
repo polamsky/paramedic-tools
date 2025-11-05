@@ -229,17 +229,21 @@ $(document).ready(function(){
     setTimeout(()=>$(this).removeClass('fa-check').addClass('fa-copy'),1000);
   });
 
-  // Copy all: "Heading: content" lines
-  $('#copyAll').click(function(){
-    const lines = $('#output .sentence').map((_,e)=>{
-      const heading = $(e).find('strong').text().trim().replace(/:$/,'');
-      const text = $(e).find('.content').text().trim();
-      return `${heading}: ${text}`;
-    }).get().filter(t => !t.endsWith(':'));
-    navigator.clipboard.writeText(lines.join("\n"));
-    $(this).text('✅ Copied!');
-    setTimeout(()=>$(this).text('📋 Copy Full MSE'),1200);
+ $('#copyAll').on('click', function(){
+  const lines = ['Mental Status Examination']; // <-- add the header here
+
+  $('.sentence').each(function(){
+    const heading = $(this).find('strong').text().trim().replace(/:$/, '');
+    const content = $(this).find('.content').text().trim();
+    if (content) {
+      lines.push(`${heading}: ${content}`);
+    }
   });
+
+  navigator.clipboard.writeText(lines.join("\n"));
+  $(this).text('✅ Copied!');
+  setTimeout(()=>$(this).text('📋 Copy full MSE'),1200);
+});
 
   buildText();
 });
