@@ -198,6 +198,14 @@ $(document).ready(function(){
     }
   });
 })();
+
+//Add current year to footer
+$(document).ready(function() {
+  $.get("footer.html", function(html) {
+    $("#footer-placeholder").html(html);
+    $("#currentYear").text(new Date().getFullYear());
+  });
+});
 </script>
 
 </body>
