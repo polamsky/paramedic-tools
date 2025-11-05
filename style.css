@@ -240,11 +240,11 @@ a.card:hover .button { background: #004d40; }
   align-items: center;
 }
 .site-footer i { color: var(--primary); margin-right: 5px; font-size: 0.9rem; }
-.site-footer p { margin: 0; font-weight: 500; letter-spacing: 0.2px; }
+.site-footer p { margin: 0; font-weight: 500; letter-spacing: 0.2px; line-height: 1.2rem; }
 
 object.logo-icon-footer {
-    width: 52px;
-    padding: 0 10px 0 0;
+    width: 41px;
+    padding: 0;
 }
 
 /* ----------------------------------------------------------
