@@ -16,27 +16,24 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        
+
   <meta name="author" content="Vlad da Cunha">
   <meta name="description" content="Clinical documentation support tool for paramedics – VIRCA, MSE, and FLACC statement generation.">
   <meta name="version" content="2.1.0">
   <meta name="last-updated" content="2025-11-03">
 
 
-  <!-- Security & Trust Headers -->
+ <!-- Safe and CSP-compliant meta -->
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<meta name="referrer" content="no-referrer-when-downgrade">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
 <meta http-equiv="Content-Security-Policy"
-      content="default-src 'self'; 
-               style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; 
-               script-src 'self' https://code.jquery.com https://cdnjs.cloudflare.com 'unsafe-inline'; 
-               font-src 'self' https://cdnjs.cloudflare.com data:; 
-               img-src 'self' data:; 
-               connect-src 'self'; 
-               frame-ancestors 'none';">
+      content="default-src 'self';
+               style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline';
+               script-src 'self' https://code.jquery.com https://cdnjs.cloudflare.com 'unsafe-inline';
+               font-src 'self' https://cdnjs.cloudflare.com data:;
+               img-src 'self' data:;
+               connect-src 'self';">
 </head>
 <body>
 
@@ -239,7 +236,7 @@ $(document).ready(function(){
       const text = $(e).find('.content').text().trim();
       return `${heading}: ${text}`;
     }).get().filter(t => !t.endsWith(':'));
-    navigator.clipboard.writeText(lines.join("\n\n"));
+    navigator.clipboard.writeText(lines.join("\n"));
     $(this).text('✅ Copied!');
     setTimeout(()=>$(this).text('📋 Copy Full MSE'),1200);
   });
