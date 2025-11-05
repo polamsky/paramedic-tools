@@ -109,12 +109,6 @@ p { line-height: 1.5; color: #555; }
     left: 0;
     right: 0;
     z-index: 1000;
-    width: 100%;
-    display: flex;
-    lex-wrap: nowrap;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
   }
 
   /* Adjust page layout so content isn't hidden */
@@ -238,12 +232,18 @@ a.card:hover .button { background: #004d40; }
   border-top: 1px solid #cde3e1;
   box-shadow: 0 -1px 4px rgba(0,0,0,0.05);
   margin-top: auto;
+  width: 100%;
+  display: flex;
+  lex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .site-footer i { color: var(--primary); margin-right: 5px; font-size: 0.9rem; }
 .site-footer p { margin: 0; font-weight: 500; letter-spacing: 0.2px; }
 
 object.logo-icon-footer {
-    width: 22px;
+    width: 52px;
     padding: 0 10px 0 0;
 }
 
