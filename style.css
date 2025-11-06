@@ -246,7 +246,7 @@ a.card:hover .button { background: #004d40; }
 
 object.logo-icon-footer {
     width: 180px;
-    padding: 0 20px;
+    padding: 0 20px ;
 }
 
 /* ----------------------------------------------------------
@@ -281,8 +281,8 @@ h3 { font-size: 1.15rem; margin-bottom: 4px; }
 
 label .description {
   font-style: italic;
-  font-size: 0.8rem; !important
-  color: #7a8a8f;
+  font-size: 0.8rem !important;
+  color: #999 !important;
   margin: 4px 0 10px;
   line-height: 1.4;
 }
@@ -291,12 +291,19 @@ input[type="checkbox"] {
   accent-color: var(--primary);
   transform: scale(1.2);
   margin-right: 8px;
+  position: absolute;
+  left: 0;
+  top: 0.2em;      
 }
+
 .checkbox-group label {
   display: block;
   margin: 6px 0;
   cursor: pointer;
   font-size: 0.95rem;
+  position: relative;
+  padding-left: 1.8em;
+  line-height: 1.4;
 }
 
 input[type="text"], textarea {
