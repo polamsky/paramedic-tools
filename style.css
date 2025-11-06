@@ -227,7 +227,6 @@ a.card:hover .button { background: #004d40; }
 ----------------------------------------------------------- */
 .site-footer {
   text-align: center;
-  padding: 10px;
   background: #e0f2f1;
   color: #336d67;
   line-height: 1.5;
@@ -248,6 +247,11 @@ a.card:hover .button { background: #004d40; }
 
 .site-footer div {
   margin: 10px;
+}
+
+.site-footer .split-horizontal {
+  display: flex;
+  flex-direction: row;
 }
 
 object.logo-icon-footer {
