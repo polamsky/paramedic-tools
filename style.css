@@ -249,6 +249,24 @@ object.logo-icon-footer {
     padding: 0 20px ;
 }
 
+/* Disclaimer Section (above footer) */
+.disclaimer-bar {
+  background-color: #004d4d; /* darker teal tone */
+  color: #f0f8f8;            /* soft light text */
+  text-align: center;
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  border-top: 2px solid #007c7c;
+  border-bottom: 1px solid #006666;
+}
+
+.disclaimer-bar p {
+  margin: 0;
+  max-width: 900px;
+  margin-inline: auto;
+}
+
 /* ----------------------------------------------------------
    TOOL PAGE STRUCTURE (VIRCA + MSE)
 ----------------------------------------------------------- */
