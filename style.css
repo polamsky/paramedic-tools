@@ -261,12 +261,6 @@ object.logo-icon-footer {
   border-bottom: 1px solid #006666;
 }
 
-.disclaimer-bar p {
-  margin: 0;
-  max-width: 900px;
-  margin-inline: auto;
-}
-
 /* ----------------------------------------------------------
    TOOL PAGE STRUCTURE (VIRCA + MSE)
 ----------------------------------------------------------- */
