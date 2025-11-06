@@ -245,13 +245,10 @@ a.card:hover .button { background: #004d40; }
 .site-footer i { color: var(--primary); margin-right: 5px; font-size: 0.9rem; }
 .site-footer p { margin: 0; font-weight: 500; letter-spacing: 0.2px; line-height: 1.2rem; }
 
-.site-footer div {
-  margin: 10px;
-}
-
 .site-footer .split-horizontal {
   display: flex;
   flex-direction: row;
+  padding: 10px;
 }
 
 object.logo-icon-footer {
@@ -264,11 +261,11 @@ object.logo-icon-footer {
   background-color: #004d4d; /* darker teal tone */
   color: #f0f8f8;            /* soft light text */
   text-align: center;
-  padding: 1rem 1.5rem;
   font-size: 0.7rem;
   border-top: 2px solid #007c7c;
-  border-bottom: 1px solid #006666;
+  padding: 5px;
 }
+
 
 /* ----------------------------------------------------------
    TOOL PAGE STRUCTURE (VIRCA + MSE)
