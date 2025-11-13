@@ -114,8 +114,8 @@ p { line-height: 1.5; color: #555; }
 
   /* Adjust page layout so content isn't hidden */
   body {
-    padding-top: 60px;  /* space for header */
-    padding-bottom: 50px; /* space for footer */
+    padding-top: var(--header-height);  /* space for header */
+    padding-bottom: var(--footer-height); /* space for footer */
   }
 
   .container {
