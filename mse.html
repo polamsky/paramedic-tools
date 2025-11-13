@@ -265,37 +265,55 @@ $(document).ready(function(){
   buildText();
 });
 
-// Floating toggle logic (mobile only; fade in/out)
-(function(){
-  const btn = document.getElementById('toggleView');
-  const left = document.querySelector('.left');
-  const right = document.querySelector('.right');
-  let showingOutput = false;
+// Floating toggle (mobile)
+$(document).ready(function () {
+  var $btn = $('#toggleView');
+  var $left = $('.left');
+  var $right = $('.right');
+  var showingOutput = false;
 
-  function onScroll(){
-    const y = window.scrollY || document.documentElement.scrollTop;
+  function onScroll() {
+    var y = $(window).scrollTop();
+
+    // Show button only after scrolling down a bit
     if (y > 120) {
-      btn.classList.add('visible');
+      $btn.addClass('visible');
     } else {
-      btn.classList.remove('visible');
-      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      $btn.removeClass('visible');
+      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
       showingOutput = false;
     }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
 
-  btn.addEventListener('click', () => {
+    // Hide button completely when user reaches page bottom
+    var scrollTop = $(window).scrollTop();
+    var docHeight = $(document).height();
+    var winHeight = $(window).height();
+
+    if (scrollTop + winHeight >= docHeight - 5) {
+      // at bottom → hide button
+      $btn.removeClass('visible');
+    }
+  }
+
+  // Listen to scroll
+  $(window).on('scroll', onScroll);
+
+  // Button click toggle
+  $btn.on('click', function () {
     if (!showingOutput) {
-      right.scrollIntoView({ behavior: 'smooth' });
-      btn.innerHTML = '<i class="fas fa-arrow-up"></i> Jump to Input';
+      $right[0].scrollIntoView({ behavior: 'smooth' });
+      $btn.html('<i class="fas fa-arrow-up"></i> Jump to Input');
       showingOutput = true;
     } else {
-      left.scrollIntoView({ behavior: 'smooth' });
-      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      $left[0].scrollIntoView({ behavior: 'smooth' });
+      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
       showingOutput = false;
     }
   });
-})();
+
+  // Run once on load
+  onScroll();
+});
 
 //Add current year to footer
 $(document).ready(function() {
