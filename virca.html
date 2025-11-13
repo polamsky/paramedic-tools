@@ -216,22 +216,21 @@ $(document).ready(function() {
   buildText();
 });
 
-// Floating toggle (mobile)
-$(document).ready(function () {
-  var $btn = $('#toggleView');
-  var $left = $('.left');
-  var $right = $('.right');
-  var showingOutput = false;
+// Floating toggle logic (mobile only; fade in/out)
+(function(){
+  const btn = document.getElementById('toggleView');
+  const left = document.querySelector('.left');
+  const right = document.querySelector('.right');
+  let showingOutput = false;
 
-  function onScroll() {
-    var y = $(window).scrollTop();
-
-    // Show button only after scrolling down a bit
+  function onScroll(){
+    const y = window.scrollY || document.documentElement.scrollTop;
     if (y > 120) {
-      $btn.addClass('visible');
+      btn.classList.add('visible');
     } else {
-      $btn.removeClass('visible');
-      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
+      btn.classList.remove('visible');
+      // Reset label when near top
+      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
       showingOutput = false;
     }
 
@@ -245,26 +244,21 @@ $(document).ready(function () {
       $btn.removeClass('visible');
     }
   }
+  window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Listen to scroll
-  $(window).on('scroll', onScroll);
-
-  // Button click toggle
-  $btn.on('click', function () {
+  btn.addEventListener('click', () => {
     if (!showingOutput) {
-      $right[0].scrollIntoView({ behavior: 'smooth' });
-      $btn.html('<i class="fas fa-arrow-up"></i> Jump to Input');
+      right.scrollIntoView({ behavior: 'smooth' });
+      btn.innerHTML = '<i class="fas fa-arrow-up"></i> Jump to Input';
       showingOutput = true;
     } else {
-      $left[0].scrollIntoView({ behavior: 'smooth' });
-      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
+      left.scrollIntoView({ behavior: 'smooth' });
+      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
       showingOutput = false;
     }
   });
+})();
 
-  // Run once on load
-  onScroll();
-});
 
 //Add current year to footer
 $(document).ready(function() {
