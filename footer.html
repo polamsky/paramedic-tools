@@ -26,6 +26,36 @@
 </footer>
 
 <script>
+// Calculate header and footer heights and adjusts .container to match
+function updateLayoutHeights() {
+  // Footer height
+  var footer = $(".site-footer");
+  var footerHeight = footer.length ? footer.outerHeight() : 0;
+  document.documentElement.style.setProperty("--footer-height", footerHeight + "px");
+
+  // Header height
+  var header = $(".site-header");
+  var headerHeight = header.length ? header.outerHeight() : 0;
+  document.documentElement.style.setProperty("--header-height", headerHeight + "px");
+
+  // Debug (optional)
+  // console.log("Header:", headerHeight, "Footer:", footerHeight);
+}
+
+$(document).ready(function () {
+  updateLayoutHeights();
+
+  // Recalculate on resize
+  $(window).on("resize", updateLayoutHeights);
+
+  // Recalculate on orientation change (iOS requires delay)
+  $(window).on("orientationchange", function () {
+    setTimeout(updateLayoutHeights, 300);
+  });
+});
+
+
+// Fixes iOs scroll when changing orientations
 function fixIOSScroll() {
   document.body.style.height = window.innerHeight + "px";
 }
@@ -36,4 +66,7 @@ window.addEventListener("orientationchange", function () {
 });
 
 window.addEventListener("resize", fixIOSScroll);
+
+
+
 </script>
