@@ -2,8 +2,8 @@
   Paramedic Documentation Suite
   Version: 2.1.1 | Author: Vlad da Cunha
   Verified for internal use.
-  Integrity Checksum: 75f4745b418e2d47437d4381af219326a251323299b07b186f562d7e544d89e4
-  Generated: 2025-11-06
+  Integrity Checksum: 9b5437e9754c9a8153b1a29569475667dd3286f37862fe519958af399d70872d
+  Generated: 2025-11-13
 -->
 
 
@@ -24,3 +24,16 @@
 </div>
 
 </footer>
+
+<script>
+function fixIOSScroll() {
+  document.body.style.height = window.innerHeight + "px";
+}
+
+window.addEventListener("orientationchange", function () {
+  // Small delay is necessary for Safari to finish rotating
+  setTimeout(fixIOSScroll, 300);
+});
+
+window.addEventListener("resize", fixIOSScroll);
+</script>

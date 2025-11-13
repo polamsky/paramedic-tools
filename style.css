@@ -2,8 +2,8 @@
   Paramedic Documentation Suite
   Version: 2.1.0 | Author: Vlad da Cunha
   Verified for internal use.
-  Integrity Checksum: 61f0bad42a50fc81f61b9dd9e180d50705e38afd5f56be188787f3d6efed38b2
-  Generated: 2025-11-06
+  Integrity Checksum: d9de731de966d37fc9fb44cd730893de46fc0a0ae38772f4e980b31102186d9f
+  Generated: 2025-11-13
 --*/
 
 
@@ -440,4 +440,11 @@ input[type="text"]:focus, textarea:focus {
 
   /* Show the floating toggle on phones only */
   .toggle-btn { display: flex; align-items: center; justify-content: center; }
+}
+
+
+/* Enable scrolling inside flex children on iOS */
+.left, .right {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
 }
