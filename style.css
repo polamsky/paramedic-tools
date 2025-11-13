@@ -118,7 +118,7 @@ p { line-height: 1.5; color: #555; }
   }
 
   .container {
-    height: calc(100vh - 110px);
+    height: calc(100vh - 170px);
     overflow-y: hidden;
   }
 }
