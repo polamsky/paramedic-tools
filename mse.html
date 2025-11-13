@@ -265,56 +265,94 @@ $(document).ready(function(){
   buildText();
 });
 
-// Floating toggle (mobile)
+// Floating toggle logic (mobile only; fade in/out)
 $(document).ready(function () {
-  var $btn = $('#toggleView');
-  var $left = $('.left');
+
+  var $btn   = $('#toggleView');
+  var $left  = $('.left');
   var $right = $('.right');
   var showingOutput = false;
 
-  function onScroll() {
-    var y = $(window).scrollTop();
+  if (!$btn.length || !$left.length || !$right.length) return;
 
-    // Show button only after scrolling down a bit
-    if (y > 120) {
-      $btn.addClass('visible');
-    } else {
+  function updateButtonLabel(isOutput) {
+    $btn.html(
+      isOutput
+        ? '<i class="fas fa-arrow-up"></i> Jump to Input'
+        : '<i class="fas fa-arrow-down"></i> Jump to Output'
+    );
+  }
+
+  function detectOutputVisible() {
+    var rect = $right.get(0).getBoundingClientRect();
+
+    // Output is active if its top is inside or above the viewport
+    return rect.top <= window.innerHeight * 0.25; 
+    // ^ tweakable threshold if needed
+  }
+
+  function onScroll() {
+    var scrollTop = $(window).scrollTop();
+    var winHeight = $(window).height();
+    var docHeight = $(document).height();
+
+    var atBottom = scrollTop + winHeight >= docHeight - 110;
+
+    // Hide at bottom
+    if (atBottom) {
       $btn.removeClass('visible');
-      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
-      showingOutput = false;
+      return;
     }
 
-    // Hide button completely when user reaches page bottom
-    var scrollTop = $(window).scrollTop();
-    var docHeight = $(document).height();
-    var winHeight = $(window).height();
-
-    if (scrollTop + winHeight >= docHeight - 5) {
-      // at bottom → hide button
+    // Hide at top
+    if (scrollTop <= 120) {
       $btn.removeClass('visible');
+      showingOutput = false;
+      updateButtonLabel(false);
+      return;
+    }
+
+    // Show button in the middle
+    $btn.addClass('visible');
+
+    // AUTO TOGGLE TEXT BASED ON WHICH PANEL IS ON SCREEN
+    if (detectOutputVisible()) {
+      if (!showingOutput) {
+        showingOutput = true;
+        updateButtonLabel(true);
+      }
+    } else {
+      if (showingOutput) {
+        showingOutput = false;
+        updateButtonLabel(false);
+      }
     }
   }
 
-  // Listen to scroll
+  // Scroll listener
   $(window).on('scroll', onScroll);
 
-  // Button click toggle
+  // Handle rotation / resize
+  $(window).on('resize orientationchange', function () {
+    setTimeout(onScroll, 300);
+  });
+
+  // Click handler
   $btn.on('click', function () {
     if (!showingOutput) {
-      $right[0].scrollIntoView({ behavior: 'smooth' });
-      $btn.html('<i class="fas fa-arrow-up"></i> Jump to Input');
+      $right.get(0).scrollIntoView({ behavior: 'smooth' });
       showingOutput = true;
+      updateButtonLabel(true);
     } else {
-      $left[0].scrollIntoView({ behavior: 'smooth' });
-      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
+      $left.get(0).scrollIntoView({ behavior: 'smooth' });
       showingOutput = false;
+      updateButtonLabel(false);
     }
   });
 
-  // Run once on load
+  // Initial run
   onScroll();
 });
-
 //Add current year to footer
 $(document).ready(function() {
   $.get("footer.html", function(html) {
