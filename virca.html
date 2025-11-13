@@ -217,48 +217,58 @@ $(document).ready(function() {
 });
 
 // Floating toggle logic (mobile only; fade in/out)
-(function(){
-  const btn = document.getElementById('toggleView');
-  const left = document.querySelector('.left');
-  const right = document.querySelector('.right');
-  let showingOutput = false;
+$(document).ready(function () {
 
-  function onScroll(){
-    const y = window.scrollY || document.documentElement.scrollTop;
-    if (y > 120) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-      // Reset label when near top
-      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
-      showingOutput = false;
+  var $btn = $('#toggleView');
+  var $left = $('.left');
+  var $right = $('.right');
+  var showingOutput = false;
+
+  if ($btn.length === 0 || $left.length === 0 || $right.length === 0) return;
+
+  function onScroll() {
+    var scrollTop = $(window).scrollTop();
+    var winHeight = $(window).height();
+    var docHeight = $(document).height();
+
+    var atBottom = scrollTop + winHeight >= docHeight - 100;
+
+    // At bottom → hide button entirely
+    if (atBottom) {
+      $btn.removeClass('visible');
+      return;
     }
 
-    // Hide button completely when user reaches page bottom
-    var scrollTop = $(window).scrollTop();
-    var docHeight = $(document).height();
-    var winHeight = $(window).height();
-
-    if (scrollTop + winHeight >= docHeight - 100) {
-      // at bottom → hide button
+    // Near top → hide + reset label
+    if (scrollTop <= 120) {
       $btn.removeClass('visible');
+      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
+      showingOutput = false;
+    } else {
+      // Middle of page → show button
+      $btn.addClass('visible');
     }
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
 
-  btn.addEventListener('click', () => {
+  // Scroll listener
+  $(window).on('scroll', onScroll);
+
+  // Toggle click handler
+  $btn.on('click', function () {
     if (!showingOutput) {
-      right.scrollIntoView({ behavior: 'smooth' });
-      btn.innerHTML = '<i class="fas fa-arrow-up"></i> Jump to Input';
+      $right.get(0).scrollIntoView({ behavior: 'smooth' });
+      $btn.html('<i class="fas fa-arrow-up"></i> Jump to Input');
       showingOutput = true;
     } else {
-      left.scrollIntoView({ behavior: 'smooth' });
-      btn.innerHTML = '<i class="fas fa-arrow-down"></i> Jump to Output';
+      $left.get(0).scrollIntoView({ behavior: 'smooth' });
+      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
       showingOutput = false;
     }
   });
-})();
 
+  // Run once on load
+  onScroll();
+});
 
 //Add current year to footer
 $(document).ready(function() {
