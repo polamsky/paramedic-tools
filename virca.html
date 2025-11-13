@@ -220,48 +220,78 @@ $(document).ready(function() {
 $(document).ready(function () {
 
   var $btn = $('#toggleView');
-  var $left = $('.left');
-  var $right = $('.right');
+  var $left = $('.left');   // Input / controls
+  var $right = $('.right'); // Output box
   var showingOutput = false;
 
   if ($btn.length === 0 || $left.length === 0 || $right.length === 0) return;
+
+  function updateButtonLabel(showOutput) {
+    if (showOutput) {
+      $btn.html('<i class="fas fa-arrow-up"></i> Jump to Input');
+    } else {
+      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
+    }
+  }
+
+  function detectWhichSectionIsVisible() {
+    var rightTop = $right.offset().top - $(window).scrollTop(); 
+    var leftTop  = $left.offset().top - $(window).scrollTop();
+
+    // If output section is near the top of the viewport → output is active
+    if (rightTop < 150) {
+      if (!showingOutput) {
+        showingOutput = true;
+        updateButtonLabel(true);
+      }
+    }
+    // If input section is near the top → input is active
+    else if (leftTop < 150) {
+      if (showingOutput) {
+        showingOutput = false;
+        updateButtonLabel(false);
+      }
+    }
+  }
 
   function onScroll() {
     var scrollTop = $(window).scrollTop();
     var winHeight = $(window).height();
     var docHeight = $(document).height();
 
-    var atBottom = scrollTop + winHeight >= docHeight - 100;
+    var atBottom = scrollTop + winHeight >= docHeight - 120;
 
-    // At bottom → hide button entirely
+    // At bottom → hide button
     if (atBottom) {
       $btn.removeClass('visible');
       return;
     }
 
-    // Near top → hide + reset label
+    // Near the top → hide + reset 
     if (scrollTop <= 120) {
       $btn.removeClass('visible');
-      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
+      updateButtonLabel(false);
       showingOutput = false;
     } else {
-      // Middle of page → show button
       $btn.addClass('visible');
     }
+
+    // NEW: detect which section is displayed and auto-toggle label
+    detectWhichSectionIsVisible();
   }
 
   // Scroll listener
   $(window).on('scroll', onScroll);
 
-  // Toggle click handler
+  // Click toggles smooth scroll between sections
   $btn.on('click', function () {
     if (!showingOutput) {
       $right.get(0).scrollIntoView({ behavior: 'smooth' });
-      $btn.html('<i class="fas fa-arrow-up"></i> Jump to Input');
+      updateButtonLabel(true);
       showingOutput = true;
     } else {
       $left.get(0).scrollIntoView({ behavior: 'smooth' });
-      $btn.html('<i class="fas fa-arrow-down"></i> Jump to Output');
+      updateButtonLabel(false);
       showingOutput = false;
     }
   });
@@ -269,6 +299,8 @@ $(document).ready(function () {
   // Run once on load
   onScroll();
 });
+
+
 
 //Add current year to footer
 $(document).ready(function() {
